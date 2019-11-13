@@ -1,0 +1,65 @@
+<!--Question 1: print json file with MVC pattern -->
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Question 1. MVC</title>
+  </head>
+  <body>
+    <h1>answer to Q1</h1>
+    <p>please refer console to check answers for Q2-Q5</p>
+    <div id="jsBreadMenu"></div>
+    <script type="text/javascript">
+      // model
+      function Model() {
+        this.breadObj = [];
+      }
+
+      Model.prototype.addBread = function(breadType, flour, water, cream) {
+        this.breadObj.push({
+          breadType: breadType,
+          recipe: { flour: flour, water: water, cream: cream }
+        });
+      };
+
+      // view
+      function View() {
+        this.breadMenu = document.getElementById("jsBreadMenu");
+      }
+
+      View.prototype.showBread = function(breadType, flour, water, cream) {
+        this.ul = document.createElement("ul");
+        this.ul.innerHTML = `
+        <li>breadType: ${breadType}</li>
+        <li>recipe</li>
+          <div>flour: ${flour}</div>
+          <div>water: ${water}</div>
+          <div>cream: ${cream}</div>`;
+        this.breadMenu.appendChild(this.ul);
+      };
+
+      // controller
+      function controller() {
+        this.myModel = new Model();
+        this.myView = new View();
+        this.myModel.addBread("Cream", 100, 100, 200);
+        this.myModel.addBread("sugar", 100, 50, 200);
+        this.myModel.addBread("butter", 100, 100, 50);
+
+        this.myModel.breadObj.forEach(function(bread) {
+          this.myView.showBread(
+            bread.breadType,
+            bread.recipe.flour,
+            bread.recipe.water,
+            bread.recipe.cream
+          );
+        });
+      }
+      controller();
+    </script>
+    <script src="./addSubtract.js"></script>
+    <script src="./factorial.js"></script>
+    <script src="./lake.js"></script>
+  </body>
+</html>
